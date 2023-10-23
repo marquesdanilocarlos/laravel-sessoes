@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 Route::get('/cart/list', [CartController::class, 'list'])->name('cart.list');
 Route::get('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::get('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
