@@ -20,10 +20,17 @@ class CartController extends Controller
     public function add(Request $request)
     {
         //$request->session()->put('product', 'Action Figure');
-        session([
+        /*session([
             'product' => 'Bola',
             'total' => 'R$ 123.00'
-        ]);
+        ]);*/
+
+        if (session()->missing('products')) {
+            session()->put('products', []);
+        }
+
+        session()->push('products', $request->get('product'));
+
         return "Adicionado com sucesso!";
     }
 
@@ -31,12 +38,14 @@ class CartController extends Controller
     {
 
 
-        if (!session()->has('product')) {
+        if (!session()->has('products')) {
            return 'Nenhum produto para remover';
         }
 
+        session()->forget('products');
+
         //$request->session()->forget(['product', 'total']);
-        session()->forget(['product', 'total']);
+        //session()->forget(['product', 'total']);
         //session()->flush();
         return "Removido com sucesso";
     }
